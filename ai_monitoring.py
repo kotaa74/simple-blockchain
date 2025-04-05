@@ -13,8 +13,8 @@ class BlockchainMonitor:
             time.sleep(5)
 
     def auto_scale_resources(self):
-        print("Scaling resources to maintain optimal performance...")
-        # Automated scaling logic here
+        print("Scaling resources dynamically to maintain peak performance...")
+        # Include logic for auto-scaling infrastructure based on real-time metrics
         pass
 
 monitor = BlockchainMonitor()

@@ -6,5 +6,5 @@ class CrossChainContract:
         for chain in self.chains:
             print(f"Executing contract on {chain} blockchain.")
 
-contract = CrossChainContract(["CYVX", "Ethereum", "Solana"])
+contract = CrossChainContract(["CYVX", "Ethereum", "Solana", "Polkadot"])
 contract.execute()
