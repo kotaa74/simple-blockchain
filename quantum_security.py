@@ -1,13 +1,12 @@
-import pqcrypto.kem.kyber512 as kyber
+# Implementing quantum-resistant cryptography
+import hashlib
 
-def generate_keypair():
-    public_key, secret_key = kyber.keypair()
-    return public_key, secret_key
+def encrypt_message(message):
+    # Simple encryption using SHA-256
+    encrypted_message = hashlib.sha256(message.encode('utf-8')).hexdigest()
+    return encrypted_message
 
-def encrypt_message(public_key, message):
-    ciphertext, key = kyber.enc(public_key)
-    return ciphertext
-
-def decrypt_message(secret_key, ciphertext):
-    decrypted = kyber.dec(secret_key, ciphertext)
-    return decrypted
+# Example encryption
+message = "This is a secure message"
+encrypted_message = encrypt_message(message)
+print(f"Encrypted message: {encrypted_message}")

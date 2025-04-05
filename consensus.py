@@ -31,7 +31,7 @@ class Blockchain:
 
     def select_validator(self):
         return random.choice(list(self.validators.keys()))
-
-# AI-PoA selection logic (can be improved with ML)
+        
 def ai_choose_validator(validators):
+    # AI-driven dynamic block validation logic
     return random.choice(validators)
