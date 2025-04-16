@@ -1,21 +1,40 @@
-from sklearn.ensemble import RandomForestClassifier
-import random
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from colorama import Fore, init
 
-class ChronoLord:
-    def __init__(self):
-        self.evolution_level = 1
-        self.model = RandomForestClassifier()
+# Initialize colorama for colored output in terminal
+init(autoreset=True)
 
-    def evolve(self):
-        # Use RandomForest to simulate evolution decision-making
-        self.evolution_level *= random.randint(2, 5)
-        print(f"ChronoLord has evolved to Level {self.evolution_level}...")
+# Load the transformer model (you can use smaller models for faster local execution if needed)
+tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.3")
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.3")
 
-    def execute(self):
-        self.evolve()
+# Function to generate responses based on user input
+def generate_response(input_text):
+    # Tokenize and generate model output
+    inputs = tokenizer(input_text, return_tensors="pt")
+    outputs = model.generate(**inputs, max_length=300)
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return response.strip()
 
-# Activate ChronoLord
-ai = ChronoLord()
-ai.execute()
+# Main interaction loop for ChronoLord AI
+def interact():
+    print(Fore.CYAN + "--- ChronoLord AI ---\n")
+    while True:
+        user_input = input(Fore.YELLOW + "You: ")
+        
+        # Exit condition for deactivation
+        if user_input.lower() == 'exit':
+            print(Fore.RED + "Goodbye, ChronoLord deactivating...\n")
+            break
+        
+        print(Fore.CYAN + "Processing...\n")
+        
+        # Generate response and print
+        response = generate_response(user_input)
+        
+        print(Fore.GREEN + "ChronoLord: " + Fore.WHITE + response + "\n")
 
-
+# Start the interaction with ChronoLord
+if __name__ == "__main__":
+    interact()
